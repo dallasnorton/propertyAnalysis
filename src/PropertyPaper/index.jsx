@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -18,6 +17,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
 
 const emptyPropertyObj = {
   name: '',
@@ -47,6 +50,10 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
   },
 }));
 
@@ -104,55 +111,63 @@ export default function PropertyPaper() {
   return (
     <div className={classes.root}>
       {activeProperties.map(property => (
-        <Paper className={classes.paper} key={property.id}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              margin="normal"
-              id="mui-pickers-date"
-              label="Date picker"
-              value={property.date}
-              onChange={event =>
-                onChange(event.toISOString(), 'date', property)}
-              // onChange={handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-          </MuiPickersUtilsProvider>
-          <FormControl className={classes.margin}>
-            <TextField
-              id="date-entered"
-              label="Address"
-              className={classes.textField}
-              value={property.address}
-              onChange={event =>
-                onChange(event.target.value, 'address', property)
-              }
-              margin="normal"
-            />
-          </FormControl>
-          <FormControl className={classes.margin}>
-            <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
-            <Input
-              type={'number'}
-              id="adornment-amount"
-              value={property.amount}
-              onChange={event =>
-                onChange(event.target.value, 'amount', property)
-              }
-              startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
-              }
-            />
-          </FormControl>
-          <IconButton
-            className={classes.button}
-            aria-label="Delete"
-            onClick={() => onDelete(property.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Paper>
+          <ExpansionPanel key={property.id}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <FormControl className={classes.margin}>
+                <TextField
+                  id="date-entered"
+                  label="Address"
+                  className={classes.textField}
+                  value={property.address}
+                  onChange={event =>
+                    onChange(event.target.value, 'address', property)
+                  }
+                  margin="normal"
+                />
+              </FormControl>
+              <FormControl className={classes.margin}>
+                <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
+                <Input
+                  type={'number'}
+                  id="adornment-amount"
+                  value={property.amount}
+                  onChange={event =>
+                    onChange(event.target.value, 'amount', property)
+                  }
+                  startAdornment={
+                    <InputAdornment position="start">$</InputAdornment>
+                  }
+                />
+              </FormControl>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  margin="normal"
+                  id="mui-pickers-date"
+                  label="Date"
+                  value={property.date}
+                  onChange={event =>
+                    onChange(event.toISOString(), 'date', property)
+                  }
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+              <IconButton
+                className={classes.button}
+                aria-label="Delete"
+                onClick={() => onDelete(property.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
       ))}
       <Tooltip title="Add New Property" aria-label="Add">
         <Fab color="primary" aria-label="Add" className={classes.fab}>
