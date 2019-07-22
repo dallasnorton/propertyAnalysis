@@ -1,21 +1,21 @@
 export default {
   listingAgent: {
-    Name: '',
-    Phone: '',
-    Email: '',
+    name: '',
+    phone: '',
+    email: '',
   },
   status: '',
   date: new Date().toISOString(),
   location: {
-    Address: '',
-    City: '',
-    State: '',
+    address: '1234',
+    city: '',
+    state: '',
     ZIP: '',
   },
   listPrice: '',
-  'MLS URL': '',
+  mlsURL: '',
+  totalRent: '',
   'Rent Details': {
-    'Total Rent': '',
     'Beds Unit 1': '',
     'Baths Unit 1': '',
     'Sq Ft Unit 1': '',
@@ -34,7 +34,7 @@ export default {
     Contractor: '',
     Agent: '',
   },
-  'Estimated Rehab Cost': '',
+  estimatedRehabCost: '',
   'Estimated ARV': '',
   Equity: '',
   BRRRR: {
@@ -46,6 +46,7 @@ export default {
     'POTENTIAL MONTHLY CASHFLOW': '',
     'ANNUAL COC RETURN POTENTIAL': '',
   },
+  annualCOCReturn: '',
   'Conventional Financing': {
     'LOI Conventional': '',
     'DOWN PAYMENT': '',

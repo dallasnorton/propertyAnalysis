@@ -12,7 +12,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import emptyPropertyObj from '../propertyObject';
 import DateForm from '../Components/DateForm';
-import TitleView from '../Components/TitleView';
+import SummaryView from '../Components/SummaryView';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -94,7 +94,7 @@ export default function PropertyPaper() {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
           >
-            <TitleView property={property} onChange={onChange} />
+            <SummaryView property={property} onChange={onChange} />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <DateForm
