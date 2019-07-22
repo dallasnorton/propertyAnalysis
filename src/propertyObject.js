@@ -6,6 +6,7 @@ export default {
   },
   status: '',
   date: new Date().toISOString(),
+  fullAddress: 'full address',
   location: {
     address: '1234',
     city: '',

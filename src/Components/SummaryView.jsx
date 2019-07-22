@@ -28,7 +28,9 @@ export default function SummaryView({property, onChange}) {
   return (
     <div className={classes.summaryContainer}>
       <Typography>
-        <Link href={property.mlsURL}>{property.location.address}</Link>
+        <Link href={property.mlsURL} target="_blank">
+          {property.fullAddress}
+        </Link>
       </Typography>
       <FormControl>
         <InputLabel htmlFor="adornment-listPrice">List Price</InputLabel>
@@ -73,6 +75,7 @@ export default function SummaryView({property, onChange}) {
           Cash on Cash Return
         </InputLabel>
         <Input
+          type={'number'}
           id="adornment-annualCOCReturn"
           value={property.annualCOCReturn}
           onChange={event =>
@@ -83,16 +86,6 @@ export default function SummaryView({property, onChange}) {
           inputProps={{
             'aria-label': 'Annual COC Returns',
           }}
-        />
-      </FormControl>
-      <FormControl>
-        <TextField
-          id="date-entered"
-          label="MLS Url"
-          className={classes.textField}
-          value={property.mlsURL}
-          onChange={event => onChange(event.target.value, 'mlsURL', property)}
-          margin="normal"
         />
       </FormControl>
     </div>

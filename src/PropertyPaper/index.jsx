@@ -13,6 +13,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import emptyPropertyObj from '../propertyObject';
 import DateForm from '../Components/DateForm';
 import SummaryView from '../Components/SummaryView';
+import DetailsView from '../Components/DetailsView';
+import EditMlsUrl from '../Components/EditMlsUrl';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const GetProperties = () => {
+const useProperties = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const GetProperties = () => {
 };
 
 export default function PropertyPaper() {
-  const activeProperties = GetProperties();
+  const activeProperties = useProperties();
   const classes = useStyles();
 
   const onAdd = () => {
@@ -97,17 +99,7 @@ export default function PropertyPaper() {
             <SummaryView property={property} onChange={onChange} />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <DateForm
-              date={property.date}
-              onChange={(value, field) => onChange(value, field, property)}
-            />
-            <IconButton
-              className={classes.button}
-              aria-label="Delete"
-              onClick={() => onDelete(property.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
+            <DetailsView property={property} onChange={onChange} onDelete={onDelete} />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}
